@@ -1,8 +1,11 @@
-import React from 'react'
+import styles from "@/app/ui/login/login.module.css"
+import LoginForm from "../ui/login/loginForm/LoginForm"
 
 const LoginPage = () => {
   return (
-    <div>LoginPage</div>
+    <div className={styles.container}>
+      <LoginForm/>
+    </div>
   )
 }
 
