@@ -3,8 +3,11 @@ import Search from "@/app/ui/dashboard/search/search"
 import Image from "next/image"
 import Link from "next/link"
 import styles from "@/app/ui/dashboard/products/products.module.css"
+import { getProduct } from "@/lib/data"
 
-const ProductPage = () => {
+const ProductPage = async () => {
+
+  const product = await getProduct();
   return (
     <div className={styles.container}>
     <div className={styles.top}>
@@ -25,22 +28,24 @@ const ProductPage = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
+        {product?.map((products:any)=>(
+          <tr key={products.id}>
           <td>
             <div className={styles.product}>
               <Image
-                src="/noproduct.jpg"
+                src={products.img || "/noproduct.jpg"}
                 alt=""
                 width={40}
                 height={40}
                 className={styles.productImage}
               />
-              IPhone
+              {products.title}
             </div>
           </td>
-          <td>₹1,20,000</td>
-          <td>20.01.2024</td>
-          <td>72</td>
+          <td>{products.desc}</td>
+          <td>₹{products.price}</td>
+          {/* <td>{products.createdAt.toString().splice(4,16)}</td> */}
+          <td>72</td>  
           <td>Action</td>
           <td>
             <div className={styles.buttons}>
@@ -55,6 +60,7 @@ const ProductPage = () => {
             </div>
           </td>
         </tr>
+        ))}
       </tbody>
     </table>
     <Pagination/>
